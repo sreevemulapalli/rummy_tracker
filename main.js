@@ -443,6 +443,26 @@ function showLibraryTab(tab) {
       let winner = g.players[0];
       g.players.forEach(p => { if(p.total < winner.total) winner = p; });
       
+      // Build the mini-scorecard table
+      const thead = '<th>Rnd</th>' + g.players.map(p => `<th>${p.name}</th>`).join('');
+      let tbody = '';
+      for (let i = 0; i < g.rounds; i++) {
+        tbody += `<tr><td style="font-weight:600; color:var(--text-muted);">R${i + 1}</td>` + 
+                 g.players.map(p => `<td>${getScoreDisplay(p.scores[i])}</td>`).join('') + 
+                 `</tr>`;
+      }
+      const tfoot = '<th>Total</th>' + g.players.map(p => `<th style="color:${p.isOut ? 'var(--danger)' : 'var(--success)'}; text-decoration:${p.isOut ? 'line-through' : 'none'};">${p.total}</th>`).join('');
+      
+      const scorecardHtml = `
+        <div class="table-wrapper" style="margin-top: 1rem; margin-bottom: 0;">
+          <table style="width: 100%; border-collapse: collapse; text-align: center; font-size: 0.85rem;">
+            <thead><tr style="border-bottom: 1px solid var(--panel-border);">${thead}</tr></thead>
+            <tbody>${tbody}</tbody>
+            <tfoot><tr>${tfoot}</tr></tfoot>
+          </table>
+        </div>
+      `;
+      
       const div = document.createElement('div');
       div.style.background = 'rgba(0,0,0,0.2)';
       div.style.padding = '1rem';
@@ -454,10 +474,8 @@ function showLibraryTab(tab) {
         <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.25rem;">Rounds Played: ${g.rounds}</div>
         <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem;">${g.date}</div>
         <details>
-          <summary style="cursor:pointer; font-size:0.85rem; color:var(--primary);">View Final Scores</summary>
-          <div style="margin-top:0.5rem; font-size: 0.85rem; display:flex; flex-direction:column; gap:0.25rem;">
-            ${g.players.map(p => `<div><span style="font-weight:600;">${p.name}:</span> ${p.total} ${p.isOut ? '<span style="color:var(--danger)">[OUT]</span>' : ''}</div>`).join('')}
-          </div>
+          <summary style="cursor:pointer; font-size:0.85rem; color:var(--primary); font-weight:600;">View Full Round Details</summary>
+          ${scorecardHtml}
         </details>
       `;
       content.appendChild(div);
