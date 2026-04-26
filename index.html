@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rummy Tracker</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Outfit:wght@500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <meta name="description" content="A beautiful and fun Rummy score tracker app.">
+</head>
+<body>
+  
+  <div class="app-container">
+    <header>
+      <h1>🃏 Rummy Tracker</h1>
+      <p class="subtitle">Keep track of the chaos.</p>
+    </header>
+
+    <main>
+      <!-- Setup Phase -->
+      <section id="setup-section" class="glass-panel">
+        <h2>Select Players</h2>
+        <div class="add-player-form">
+          <input type="text" id="player-name-input" placeholder="Player Name" onkeyup="if(event.key === 'Enter') addPlayer()" autocomplete="off"/>
+          <button onclick="addPlayer()" class="btn-primary">Add</button>
+        </div>
+        <ul id="player-list"></ul>
+        <button id="start-game-btn" class="btn-success full-width" onclick="startGame()" disabled style="margin-top:1rem;">Start Game</button>
+        
+        <!-- Library Section -->
+        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 2rem 0;"/>
+        <div id="library-section">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+            <button class="btn-outline flex-1" id="tab-paused" onclick="showLibraryTab('paused')" style="flex: 1; border-color: var(--primary);">⏸️ Paused</button>
+            <button class="btn-outline flex-1" id="tab-history" onclick="showLibraryTab('history')" style="flex: 1;">📜 History</button>
+          </div>
+          <div id="library-content" style="max-height: 300px; overflow-y: auto; padding-right: 0.5rem;">
+            <!-- Paused or History items will render here -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Game Phase -->
+      <section id="game-section" class="hidden">
+        
+        <!-- Announcements -->
+        <div id="announcement-banner" class="glass-panel hidden banner-animate">
+          <div class="banner-content">
+            <img id="announcement-img" src="" alt="Avatar" class="avatar-img" />
+            <div class="banner-text">
+              <h3 id="announcement-title"></h3>
+              <p id="announcement-desc"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scorecard Table -->
+        <div class="table-wrapper glass-panel">
+          <table id="scorecard-table">
+            <thead>
+              <tr id="table-headers">
+                <th>Round</th>
+                <!-- Player names will be inserted here -->
+              </tr>
+            </thead>
+            <tbody id="table-body">
+              <!-- Rounds will go here -->
+            </tbody>
+            <tfoot id="table-foot">
+              <tr id="table-totals">
+                <th>Total</th>
+                <!-- Totals here -->
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <!-- Current Round Input -->
+        <div id="round-input-panel" class="glass-panel">
+          <h2 id="current-round-title">Round 1 Input</h2>
+          <div id="player-inputs">
+            <!-- Player input rows go here -->
+          </div>
+          <button class="btn-primary full-width" onclick="submitRound()">Submit Round</button>
+          <button class="btn-outline full-width" onclick="pauseGame()" style="margin-top: 0.5rem;">⏸️ Pause & Jump to Menu</button>
+        </div>
+
+      </section>
+    </main>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
