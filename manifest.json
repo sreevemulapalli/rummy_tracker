@@ -1,0 +1,16 @@
+{
+  "name": "Rummy Tracker",
+  "short_name": "Rummy",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#09090b",
+  "theme_color": "#8b5cf6",
+  "description": "Premium Rummy Score Tracker",
+  "icons": [
+    {
+      "src": "assets/celebration_hero_1777168705232.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
